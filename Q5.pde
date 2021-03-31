@@ -2,18 +2,17 @@ float cx;
 float cy;
 float x;
 float y;
-float w1;
-float w2;
+float w;
 
-void setup()  {
+void setup(){
   size(800, 600, P3D);
   background(255);
   frameRate(60);
-  w1 = 0;
-  w2 = 0;
+  w = 0;
 }
 
 void background(){
+  background(255);
   translate(width/2, height/2, 0);
   strokeWeight(1);
   scale(1,-1,1);
@@ -29,16 +28,28 @@ void background(){
   rotateX(PI/3);
   strokeWeight(6);
   rect(0, 0, 200, 200);
+  point(100,100);
   circle(100,100,200);
 }
 
 void draw(){
   background();
   translate(100,100);
-  cx = 75*cos(w1);
-  cy = 75*sin(w1);
-  circle(cx,cy,50);
+  pushMatrix();
+  rotateZ(radians(frameCount%360));
+  translate(0, 100);
+  pushMatrix();
+  rotateX(-PI/2);
+  translate(25, -25, 0);
+  circle(0, 0, 50);
+  pushMatrix();
+  stroke(0,255,0);
   strokeWeight(10);
-  point(0,0);
-  w1 += PI/120;
+  x = 25*cos(-w);
+  y = 25*sin(-w);
+  point(x,y);
+  w += PI/60;
+  popMatrix();
+  popMatrix();
+  popMatrix();
 }
